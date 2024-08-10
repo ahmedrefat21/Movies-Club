@@ -63,6 +63,11 @@ extension ListMoviesViewController : UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = MovieDetailsViewController.instantiate()
+        controller.movieID = movies[indexPath.row].id ?? 0
+        navigationController?.pushViewController(controller, animated: true)
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 200
