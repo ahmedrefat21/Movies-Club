@@ -16,6 +16,7 @@
 		8B9533042C681E40002DCACA /* ListMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9533032C681E40002DCACA /* ListMoviesViewController.swift */; };
 		8B95330A2C681FA6002DCACA /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9533082C681FA6002DCACA /* MovieCell.swift */; };
 		8B95330B2C681FA6002DCACA /* MovieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B9533092C681FA6002DCACA /* MovieCell.xib */; };
+		8B95330F2C6821BF002DCACA /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B95330E2C6821BF002DCACA /* UIViewController+Extension.swift */; };
 		8BB1BFF22C67C6E800671CF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1BFF12C67C6E800671CF5 /* AppDelegate.swift */; };
 		8BB1BFF42C67C6E800671CF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1BFF32C67C6E800671CF5 /* SceneDelegate.swift */; };
 		8BB1BFF92C67C6E800671CF5 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1BFF82C67C6E800671CF5 /* Base */; };
@@ -35,6 +36,7 @@
 		8B9533032C681E40002DCACA /* ListMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMoviesViewController.swift; sourceTree = "<group>"; };
 		8B9533082C681FA6002DCACA /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		8B9533092C681FA6002DCACA /* MovieCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCell.xib; sourceTree = "<group>"; };
+		8B95330E2C6821BF002DCACA /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		8BB1BFEE2C67C6E800671CF5 /* Movies Club.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movies Club.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1BFF12C67C6E800671CF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BB1BFF32C67C6E800671CF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,14 @@
 			path = ListMoviesTableViewCell;
 			sourceTree = "<group>";
 		};
+		8B95330D2C682109002DCACA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8B95330E2C6821BF002DCACA /* UIViewController+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8BB1BFE52C67C6E800671CF5 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +141,7 @@
 		8BB1BFF02C67C6E800671CF5 /* Movies Club */ = {
 			isa = PBXGroup;
 			children = (
+				8B95330D2C682109002DCACA /* Extensions */,
 				8B9533052C681F59002DCACA /* CustomViews */,
 				8B9533022C681E18002DCACA /* Views */,
 				8B9532FB2C681AEE002DCACA /* Models */,
@@ -272,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B9532F82C681AD8002DCACA /* NetworkService.swift in Sources */,
+				8B95330F2C6821BF002DCACA /* UIViewController+Extension.swift in Sources */,
 				8BB1BFFC2C67C6E800671CF5 /* Movies_Club.xcdatamodeld in Sources */,
 				8B9533042C681E40002DCACA /* ListMoviesViewController.swift in Sources */,
 				8B9533012C681B2A002DCACA /* MovieDetail.swift in Sources */,
