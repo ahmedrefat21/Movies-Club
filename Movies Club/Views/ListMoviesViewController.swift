@@ -9,23 +9,34 @@ import UIKit
 import ProgressHUD
 
 class ListMoviesViewController: UIViewController {
-
-    @IBOutlet weak var MovieTableView: UITableView!
+    
+    // MARK: - Properties
     private let appearance = UINavigationBarAppearance()
+    var internetConnectivity: ConnectivityManager?
     var movies : [Movie] = []
+
+    
+    // MARK: - Outlets
+    @IBOutlet weak var MovieTableView: UITableView!
+    @IBOutlet weak var noInternetView: UIView!
+    
+    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         registerCell()
-        ProgressHUD.show()
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        setupNavigationBar()
         fetchData()
+    }
         
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar()
+        showNoInternetView()
     }
     
+    // MARK: - Private Methods
     private func fetchData(){
+        ProgressHUD.show()
         NetworkService.shared.fetchAllMovies { [weak self] (result) in
             switch result {
             case .success(let movies):
@@ -33,7 +44,7 @@ class ListMoviesViewController: UIViewController {
                 self?.movies = movies.results
                 self?.MovieTableView.reloadData()
             case .failure(let error):
-                print("error")
+                print(error.localizedDescription)
                 ProgressHUD.showError(error.localizedDescription)
             }
         }
@@ -52,8 +63,32 @@ class ListMoviesViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.standardAppearance = appearance
     }
+    
+    private func showNoInternetView(){
+        internetConnectivity = ConnectivityManager.connectivityInstance
+        if internetConnectivity?.isConnectedToInternet() == true {
+            noInternetView.isHidden = true
+        }else {
+            noInternetView.isHidden = false
+        }
+    }
+    
+    // MARK: - Buttons Action
+    @IBAction func refreshBtn(_ sender: Any) {
+        if internetConnectivity?.isConnectedToInternet() == true {
+            noInternetView.isHidden = true
+        }else {
+            noInternetView.isHidden = false
+        }
+        fetchData()
+    }
+    
 }
+
+
 extension ListMoviesViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }

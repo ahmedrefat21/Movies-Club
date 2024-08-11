@@ -10,4 +10,5 @@ target 'Movies Club' do
 pod 'Kingfisher'
 pod 'ProgressHUD', :git => 'https://github.com/relatedcode/ProgressHUD.git', :commit => '83c3801e9aa69be157a47c40cdd8702bfaf29213'
   pod 'Cosmos', '~> 23.0'
+pod 'ReachabilitySwift'
 end

@@ -13,6 +13,14 @@ import Cosmos
 
 class MovieDetailsViewController: UIViewController {
     
+    // MARK: - Properties
+    var movie : MovieDetail!
+    var movieID : Int = 0
+    var genres: [Genre] = []
+    private let appearance = UINavigationBarAppearance()
+    var internetConnectivity: ConnectivityManager?
+    
+    // MARK: - Outlets
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
@@ -23,26 +31,23 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var genresCollectionView: UICollectionView!
     @IBOutlet weak var favoriteBtnOutlet: UIBarButtonItem!
     
-    var movie : MovieDetail!
-    var movieID : Int = 0
-    var genres: [Genre] = []
-    private let appearance = UINavigationBarAppearance()
+    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        ProgressHUD.show()
         registerCell()
         setupNavigationBar()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         fetchData()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         checkFavorite()
     }
     
+    // MARK: - Private Methods
     private func fetchData(){
+        ProgressHUD.show()
         NetworkService.shared.fetchMovieDetails(id: movieID) { [weak self] (result) in
             switch result {
             case .success(let movies):
@@ -52,7 +57,7 @@ class MovieDetailsViewController: UIViewController {
                 self?.populateView()
                 self?.genresCollectionView.reloadData()
             case .failure(let error):
-                print("error")
+                print(error.localizedDescription)
                 ProgressHUD.showError(error.localizedDescription)
             }
         }
@@ -80,6 +85,8 @@ class MovieDetailsViewController: UIViewController {
         genres = movie.genres ?? []
     }
     
+    
+    
     private func checkFavorite() {
         let isFav = DatabaseManager.sharedMovieDB.isFavorite(movieId: movieID)
         
@@ -104,6 +111,8 @@ class MovieDetailsViewController: UIViewController {
         ProgressHUD.showError("Movie has been deleted from Favourite.")
         
     }
+    
+    // MARK: - Buttons Action
     @IBAction func backBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
         
@@ -122,6 +131,8 @@ class MovieDetailsViewController: UIViewController {
 
 
 extension MovieDetailsViewController: UICollectionViewDataSource {
+    
+    // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return genres.count
     }

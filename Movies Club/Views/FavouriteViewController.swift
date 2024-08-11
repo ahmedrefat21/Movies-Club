@@ -9,16 +9,22 @@ import UIKit
 import ProgressHUD
 
 class FavouriteViewController: UIViewController {
-
-    @IBOutlet weak var FavouriteTableView: UITableView!
-    private let appearance = UINavigationBarAppearance()
-    var favouriteMovies: [LocalMovie] = []
     
+    // MARK: - Properties
+    private let appearance = UINavigationBarAppearance()
+    var internetConnectivity: ConnectivityManager?
+    var favouriteMovies: [LocalMovie] = []
+
+    // MARK: - Outlets
+    @IBOutlet weak var FavouriteTableView: UITableView!
+    
+    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         registerCell()
-        ProgressHUD.show()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,7 +33,9 @@ class FavouriteViewController: UIViewController {
         checkIfThereAreFavoriteProducts(allMoviesList: favouriteMovies)
     }
     
+    // MARK: - Private Methods
     private func fetchData(){
+        ProgressHUD.show()
         self.favouriteMovies = DatabaseManager.sharedMovieDB.fetchAllMovies() ?? []
         ProgressHUD.dismiss()
         self.FavouriteTableView.reloadData()
@@ -48,7 +56,7 @@ class FavouriteViewController: UIViewController {
         navigationItem.standardAppearance = appearance
     }
     
-    func checkIfThereAreFavoriteProducts(allMoviesList:[LocalMovie]){
+    private func checkIfThereAreFavoriteProducts(allMoviesList:[LocalMovie]){
         FavouriteTableView.isHidden = allMoviesList.isEmpty
     }
 
@@ -56,6 +64,7 @@ class FavouriteViewController: UIViewController {
 
 extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favouriteMovies.count
     }
@@ -66,9 +75,15 @@ extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = MovieDetailsViewController.instantiate()
-        controller.movieID = favouriteMovies[indexPath.row].id
-        navigationController?.pushViewController(controller, animated: true)
+        internetConnectivity = ConnectivityManager.connectivityInstance
+        if internetConnectivity?.isConnectedToInternet() == true {
+            let controller = MovieDetailsViewController.instantiate()
+            controller.movieID = favouriteMovies[indexPath.row].id
+            navigationController?.pushViewController(controller, animated: true)
+        }else {
+            ProgressHUD.showError("Try Connect to WiFi")
+        }
+        
     }
     
     

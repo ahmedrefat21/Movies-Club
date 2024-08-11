@@ -10,6 +10,7 @@ import Foundation
 class Constants{
     static let heart = "bookmark"
     static let fillHeart = "bookmark.fill"
+    
 }
 
 
