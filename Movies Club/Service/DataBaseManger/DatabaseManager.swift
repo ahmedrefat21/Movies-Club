@@ -94,10 +94,10 @@ class DatabaseManager {
         }
     }
 
-    func isFavorite(productId: Int, customerId: Int) -> Bool {
+    func isFavorite(movieId: Int) -> Bool {
         let allMoviesList = fetchAllMovies()
         for movie in allMoviesList! {
-            if(movie.id == productId) {
+            if(movie.id == movieId) {
                 return true
             }
         }

@@ -21,6 +21,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieTotalRating: UILabel!
     @IBOutlet weak var movieRatinginStars: CosmosView!
     @IBOutlet weak var genresCollectionView: UICollectionView!
+    @IBOutlet weak var favoriteBtnOutlet: UIBarButtonItem!
     
     var movie : MovieDetail!
     var movieID : Int = 0
@@ -35,6 +36,10 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkFavorite()
     }
     
     private func fetchData(){
@@ -75,11 +80,44 @@ class MovieDetailsViewController: UIViewController {
         genres = movie.genres ?? []
     }
     
+    private func checkFavorite() {
+        let isFav = DatabaseManager.sharedMovieDB.isFavorite(movieId: movieID)
+        
+        if isFav {
+            self.favoriteBtnOutlet.image = UIImage(systemName: Constants.fillHeart)
+        } else {
+            self.favoriteBtnOutlet.image = UIImage(systemName: Constants.heart)
+        }
+    }
+    
+    private func addMovie(){
+        let localMovie = LocalMovie(id: movie.id ?? 0, title: movie.originalTitle ?? "", rating: movie.voteAverage ?? 0.0, releaseDate: movie.releaseDate ?? "", image: movie.posterPath ?? "")
+        DatabaseManager.sharedMovieDB.insertMovie(movie: localMovie)
+        self.favoriteBtnOutlet.image = UIImage(systemName: Constants.fillHeart)
+        ProgressHUD.showSuccess("Movie has been added to Favourite.")
+        
+    }
+    
+    private func deleteMovie(){
+        DatabaseManager.sharedMovieDB.delete(id:  movie.id ?? 0)
+        self.favoriteBtnOutlet.image = UIImage(systemName: Constants.heart)
+        
+    }
     @IBAction func backBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-       
+        
     }
+    
+    @IBAction func favouriteBtn(_ sender: Any) {
+        if favoriteBtnOutlet.image == UIImage(systemName: Constants.heart) {
+            addMovie()
+        } else {
+            deleteMovie()
+        }
+    }
+
 }
+    
 
 
 extension MovieDetailsViewController: UICollectionViewDataSource {

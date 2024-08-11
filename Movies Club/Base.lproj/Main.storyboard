@@ -66,7 +66,7 @@
         <!--Details-->
         <scene sceneID="1fc-gB-MPI">
             <objects>
-                <viewController storyboardIdentifier="MovieDetailsViewController" id="iDX-P3-mqh" customClass="MovieDetailsViewController" customModule="movies" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetailsViewController" id="iDX-P3-mqh" customClass="MovieDetailsViewController" customModule="Movies_Club" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="whS-Ty-Xnv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -269,9 +269,13 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bookmark" catalog="system" id="p8V-vO-QPT">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="favouriteBtn:" destination="iDX-P3-mqh" id="5XN-vC-hfm"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="favoriteBtnOutlet" destination="p8V-vO-QPT" id="12D-Gr-Iow"/>
                         <outlet property="genresCollectionView" destination="7Wt-BA-kU8" id="JHm-40-Xqj"/>
                         <outlet property="movieDescriptionLabel" destination="ULq-aA-zrQ" id="zKJ-Th-b1b"/>
                         <outlet property="movieImageView" destination="0Dm-Na-2NX" id="xHg-zX-ETD"/>
