@@ -28,4 +28,12 @@ class MovieCell: UITableViewCell {
         movieRatinginStars.rating = Double((movie.voteAverage ?? 0) / 2)
     }
     
+    func setupFavouriteList(movie : LocalMovie)  {
+        movieTitle.text = movie.title
+        movieTotalRating.text = String(format: "%.1f", movie.rating)
+        movieImg.kf.setImage(with: URL(string: Route.imageBaseUrl + (movie.image)))
+        movieReleaseDate.text = movie.releaseDate
+        movieRatinginStars.rating = Double((movie.rating) / 2)
+    }
+    
 }
