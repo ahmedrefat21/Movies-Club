@@ -69,6 +69,21 @@ extension ListMoviesViewController : UITableViewDelegate, UITableViewDataSource 
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        //set the initial state of the cell
+        cell.alpha = 0
+        let transform = CATransform3DTranslate(CATransform3DIdentity, -250, 20, 0)
+        cell.layer.transform = transform
+        //UIView animated method to change the final state of the cell
+        UIView.animate(withDuration: 1.0){
+            cell.alpha = 1.0
+            cell.layer.transform = CATransform3DIdentity
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 200
    }
