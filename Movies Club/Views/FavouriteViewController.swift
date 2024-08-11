@@ -24,6 +24,7 @@ class FavouriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         fetchData()
         setupNavigationBar()
+        checkIfThereAreFavoriteProducts(allMoviesList: favouriteMovies)
     }
     
     private func fetchData(){
@@ -45,6 +46,10 @@ class FavouriteViewController: UIViewController {
         appearance.backgroundColor = UIColor(named: "Background")
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.standardAppearance = appearance
+    }
+    
+    func checkIfThereAreFavoriteProducts(allMoviesList:[LocalMovie]){
+        FavouriteTableView.isHidden = allMoviesList.isEmpty
     }
 
 }
@@ -98,6 +103,7 @@ extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
                 self.favouriteMovies.remove(at: indexPath.row)
                 self.FavouriteTableView.reloadData()
                 ProgressHUD.showError("Movie has been deleted from Favourite.")
+                self.checkIfThereAreFavoriteProducts(allMoviesList: self.favouriteMovies)
 
                 
                 
