@@ -50,6 +50,7 @@ class FavouriteViewController: UIViewController {
 }
 
 extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favouriteMovies.count
     }
@@ -83,4 +84,26 @@ extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 200
    }
+    
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+
+            
+            let alert : UIAlertController = UIAlertController(title: "Confirm to delete", message: "Are you sure you want to delete this Movie?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
+                
+                DatabaseManager.sharedMovieDB.delete(id:self.favouriteMovies[indexPath.row].id)
+                self.favouriteMovies.remove(at: indexPath.row)
+                self.FavouriteTableView.reloadData()
+                ProgressHUD.showError("Movie has been deleted from Favourite.")
+
+                
+                
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel))
+            self.present(alert, animated: true)
+        }
+    }
 }

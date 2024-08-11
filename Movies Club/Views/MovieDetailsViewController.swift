@@ -101,6 +101,7 @@ class MovieDetailsViewController: UIViewController {
     private func deleteMovie(){
         DatabaseManager.sharedMovieDB.delete(id:  movie.id ?? 0)
         self.favoriteBtnOutlet.image = UIImage(systemName: Constants.heart)
+        ProgressHUD.showError("Movie has been deleted from Favourite.")
         
     }
     @IBAction func backBtn(_ sender: Any) {
