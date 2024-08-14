@@ -66,24 +66,35 @@
                                     <constraint firstItem="Qek-0y-AlY" firstAttribute="centerY" secondItem="xyb-G0-vG7" secondAttribute="centerY" id="gcT-vD-uRC"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="mQ2-VI-P7A">
+                                <rect key="frame" x="146.66666666666666" y="376" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="sSF-Os-N1b"/>
+                                    <constraint firstAttribute="width" constant="100" id="wwz-8z-c4y"/>
+                                </constraints>
+                                <color key="color" name="SecondryColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Tn8-Cp-Qpf"/>
                         <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="Tn8-Cp-Qpf" firstAttribute="trailing" secondItem="xyb-G0-vG7" secondAttribute="trailing" id="0Ux-Sc-ezp"/>
                             <constraint firstItem="Tn8-Cp-Qpf" firstAttribute="bottom" secondItem="xyb-G0-vG7" secondAttribute="bottom" id="5Ta-mr-fJm"/>
+                            <constraint firstItem="mQ2-VI-P7A" firstAttribute="centerY" secondItem="ksy-s2-szT" secondAttribute="centerY" id="Cm5-OE-Pmx"/>
                             <constraint firstItem="Sry-k0-HeH" firstAttribute="leading" secondItem="Tn8-Cp-Qpf" secondAttribute="leading" id="DEB-wG-ZMo"/>
                             <constraint firstAttribute="bottom" secondItem="Sry-k0-HeH" secondAttribute="bottom" id="GOu-Ld-xJF"/>
                             <constraint firstItem="xyb-G0-vG7" firstAttribute="top" secondItem="Tn8-Cp-Qpf" secondAttribute="top" id="JRu-8k-dnk"/>
                             <constraint firstItem="Sry-k0-HeH" firstAttribute="top" secondItem="Tn8-Cp-Qpf" secondAttribute="top" id="crz-uQ-2CC"/>
                             <constraint firstItem="xyb-G0-vG7" firstAttribute="leading" secondItem="Tn8-Cp-Qpf" secondAttribute="leading" id="drF-8g-Dgd"/>
                             <constraint firstItem="Sry-k0-HeH" firstAttribute="trailing" secondItem="Tn8-Cp-Qpf" secondAttribute="trailing" id="uIj-fj-PFI"/>
+                            <constraint firstItem="mQ2-VI-P7A" firstAttribute="centerX" secondItem="ksy-s2-szT" secondAttribute="centerX" id="xHM-7W-nC6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fdl-Te-Unb"/>
                     <connections>
                         <outlet property="MovieTableView" destination="Sry-k0-HeH" id="cTV-WA-REv"/>
                         <outlet property="noInternetView" destination="xyb-G0-vG7" id="Cvu-P7-rX4"/>
+                        <outlet property="spinner" destination="mQ2-VI-P7A" id="aPM-mw-W7f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ffX-d5-A48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -274,16 +285,26 @@
                                     <constraint firstItem="Qhl-Tl-8u7" firstAttribute="leading" secondItem="YO2-CM-Bhn" secondAttribute="leading" id="wer-7I-rGQ"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-Gk-WLI">
+                                <rect key="frame" x="146.66666666666666" y="376" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="41o-84-1rV"/>
+                                    <constraint firstAttribute="width" constant="100" id="V4L-mc-GbR"/>
+                                </constraints>
+                                <color key="color" name="SecondryColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EbD-v8-Q13"/>
                         <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="EbD-v8-Q13" firstAttribute="trailing" secondItem="Qhl-Tl-8u7" secondAttribute="trailing" constant="16" id="48I-oG-wB2"/>
+                            <constraint firstItem="1bF-Gk-WLI" firstAttribute="centerX" secondItem="whS-Ty-Xnv" secondAttribute="centerX" id="9lR-AX-Gzk"/>
                             <constraint firstItem="Ye7-op-3Cb" firstAttribute="trailing" secondItem="EbD-v8-Q13" secondAttribute="trailing" id="OgX-c2-OZQ"/>
                             <constraint firstItem="Qhl-Tl-8u7" firstAttribute="leading" secondItem="EbD-v8-Q13" secondAttribute="leading" constant="16" id="ZLx-vq-9We"/>
                             <constraint firstItem="EbD-v8-Q13" firstAttribute="bottom" secondItem="YO2-CM-Bhn" secondAttribute="bottom" id="a51-JN-PgK"/>
                             <constraint firstItem="YO2-CM-Bhn" firstAttribute="leading" secondItem="EbD-v8-Q13" secondAttribute="leading" id="drj-jb-cN7"/>
                             <constraint firstItem="YO2-CM-Bhn" firstAttribute="top" secondItem="EbD-v8-Q13" secondAttribute="top" id="jL3-tp-lfQ"/>
+                            <constraint firstItem="1bF-Gk-WLI" firstAttribute="centerY" secondItem="whS-Ty-Xnv" secondAttribute="centerY" id="lc4-8z-FFq"/>
                             <constraint firstItem="EbD-v8-Q13" firstAttribute="trailing" secondItem="YO2-CM-Bhn" secondAttribute="trailing" id="vHF-T2-MOc"/>
                         </constraints>
                     </view>
@@ -311,6 +332,7 @@
                         <outlet property="movieTitleLabel" destination="UOy-Zz-wz9" id="Ef3-Ld-6gq"/>
                         <outlet property="movieTotalRating" destination="Y4u-0i-ga6" id="ZQQ-aS-v0o"/>
                         <outlet property="posterImageView" destination="fEx-vb-26m" id="4bc-zs-xME"/>
+                        <outlet property="spinner" destination="1bF-Gk-WLI" id="WCL-oY-IVY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="udJ-Pu-URw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -346,6 +368,14 @@
                                     <outlet property="delegate" destination="sUr-UM-KFl" id="l16-zR-8xE"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lz2-cK-Kls">
+                                <rect key="frame" x="146.66666666666666" y="376" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Aww-cQ-1FQ"/>
+                                    <constraint firstAttribute="height" constant="100" id="FjJ-BH-zkg"/>
+                                </constraints>
+                                <color key="color" name="SecondryColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BbK-hM-kQt"/>
                         <color key="backgroundColor" name="Background"/>
@@ -357,12 +387,15 @@
                             <constraint firstAttribute="bottom" secondItem="xaq-lY-DaO" secondAttribute="bottom" id="U3a-O7-v0R"/>
                             <constraint firstItem="xaq-lY-DaO" firstAttribute="leading" secondItem="BbK-hM-kQt" secondAttribute="leading" id="Yew-YR-Ysp"/>
                             <constraint firstItem="xaq-lY-DaO" firstAttribute="top" secondItem="BbK-hM-kQt" secondAttribute="top" id="dd1-uu-W45"/>
+                            <constraint firstItem="lz2-cK-Kls" firstAttribute="centerX" secondItem="B4R-Lg-Wex" secondAttribute="centerX" id="qY7-6k-4BC"/>
                             <constraint firstItem="Pct-R5-wfR" firstAttribute="top" secondItem="teT-Ny-br9" secondAttribute="bottom" constant="8" id="tOB-1v-pdt"/>
+                            <constraint firstItem="lz2-cK-Kls" firstAttribute="centerY" secondItem="B4R-Lg-Wex" secondAttribute="centerY" id="xf3-3d-FkL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MF9-x0-Enl"/>
                     <connections>
                         <outlet property="FavouriteTableView" destination="xaq-lY-DaO" id="uta-FM-4sF"/>
+                        <outlet property="spinner" destination="lz2-cK-Kls" id="QD1-7S-XXU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KXS-qr-KTU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

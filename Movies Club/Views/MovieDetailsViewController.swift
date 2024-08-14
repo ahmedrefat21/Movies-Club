@@ -30,6 +30,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieRatinginStars: CosmosView!
     @IBOutlet weak var genresCollectionView: UICollectionView!
     @IBOutlet weak var favoriteBtnOutlet: UIBarButtonItem!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     
     // MARK: - View Lifecycle
@@ -45,24 +46,24 @@ class MovieDetailsViewController: UIViewController {
         checkFavorite()
     }
     
-    // MARK: - Private Methods
+    // MARK: - Data fetching function
     private func fetchData(){
-        //ProgressHUD.show()
+        spinner.startAnimating()
         NetworkService.shared.fetchMovieDetails(id: movieID) { [weak self] (result) in
             switch result {
             case .success(let movies):
-                ProgressHUD.dismiss()
-                
+                self?.spinner.stopAnimating()
                 self?.movie = movies
                 self?.populateView()
                 self?.genresCollectionView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
                 ProgressHUD.failed(error.localizedDescription)
-//                ProgressHUD.showError(error.localizedDescription)
             }
         }
     }
+    
+    // MARK: - NavigationBar SetUp function
     private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
@@ -70,12 +71,13 @@ class MovieDetailsViewController: UIViewController {
         navigationItem.standardAppearance = appearance
     }
     
+    // MARK: - Register Collectionview Cell function
     private func registerCell() {
         genresCollectionView.register(UINib(nibName: GenreCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: GenreCollectionViewCell.identifier)
     }
     
+    // MARK: - UI Setup function
     private func populateView (){
-        
         posterImageView.kf.setImage(with: URL(string: Route.imageBaseUrl + (movie.posterPath ?? "")))
         movieImageView.kf.setImage(with: URL(string: Route.imageBaseUrl + (movie.backdropPath ?? "")))
         movieTitleLabel.text = movie.title
@@ -87,7 +89,7 @@ class MovieDetailsViewController: UIViewController {
     }
     
     
-    
+    // MARK: - Check Favourie Item functions
     private func checkFavorite() {
         let isFav = DatabaseManager.sharedMovieDB.isFavorite(movieId: movieID)
         
@@ -98,6 +100,7 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
+    // MARK: - Add Item to Database function
     private func addMovie(){
         let localMovie = LocalMovie(id: movie.id ?? 0, title: movie.originalTitle ?? "", rating: movie.voteAverage ?? 0.0, releaseDate: movie.releaseDate ?? "", image: movie.posterPath ?? "")
         DatabaseManager.sharedMovieDB.insertMovie(movie: localMovie)
@@ -106,7 +109,7 @@ class MovieDetailsViewController: UIViewController {
 
         
     }
-    
+    // MARK: - Delete Item to Database function
     private func deleteMovie(){
         DatabaseManager.sharedMovieDB.delete(id:  movie.id ?? 0)
         self.favoriteBtnOutlet.image = UIImage(systemName: Constants.heart)
@@ -132,10 +135,9 @@ class MovieDetailsViewController: UIViewController {
 }
     
 
-
+// MARK: - UICollectionViewDataSource
 extension MovieDetailsViewController: UICollectionViewDataSource {
     
-    // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return genres.count
     }

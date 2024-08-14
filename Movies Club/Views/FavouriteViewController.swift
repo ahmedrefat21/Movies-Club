@@ -17,6 +17,7 @@ class FavouriteViewController: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var FavouriteTableView: UITableView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     
     // MARK: - View Lifecycle
@@ -33,19 +34,20 @@ class FavouriteViewController: UIViewController {
         checkIfThereAreFavoriteProducts(allMoviesList: favouriteMovies)
     }
     
-    // MARK: - Private Methods
+    // MARK: - Data fetching functions
     private func fetchData(){
-        //ProgressHUD.show()
+        spinner.startAnimating()
         self.favouriteMovies = DatabaseManager.sharedMovieDB.fetchAllMovies() ?? []
-        ProgressHUD.dismiss()
+        spinner.stopAnimating()
         self.FavouriteTableView.reloadData()
     }
 
-    
+    // MARK: - Register tableview Cell function
     private func registerCell() {
         FavouriteTableView.register(UINib(nibName: MovieCell.identifier, bundle: nil), forCellReuseIdentifier: MovieCell.identifier)
     }
     
+    // MARK: - NavigationBar SetUp function
     private func setupNavigationBar() {
         title = "Favourite Movies"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -56,15 +58,17 @@ class FavouriteViewController: UIViewController {
         navigationItem.standardAppearance = appearance
     }
     
+    // MARK: - Check EmptyList function
     private func checkIfThereAreFavoriteProducts(allMoviesList:[LocalMovie]){
         FavouriteTableView.isHidden = allMoviesList.isEmpty
     }
 
 }
 
+// MARK: - UITableViewDataSource
 extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - UITableViewDataSource
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favouriteMovies.count
     }

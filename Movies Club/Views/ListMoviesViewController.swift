@@ -17,6 +17,7 @@ class ListMoviesViewController: UIViewController {
 
     
     // MARK: - Outlets
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var MovieTableView: UITableView!
     @IBOutlet weak var noInternetView: UIView!
     
@@ -34,13 +35,13 @@ class ListMoviesViewController: UIViewController {
         showNoInternetView()
     }
     
-    // MARK: - Private Methods
+    // MARK: - Data fetching function
     private func fetchData(){
-        //ProgressHUD.show()
+        spinner.startAnimating()
         NetworkService.shared.fetchAllMovies { [weak self] (result) in
             switch result {
             case .success(let movies):
-                ProgressHUD.dismiss()
+                self?.spinner.stopAnimating()
                 self?.movies = movies.results
                 self?.MovieTableView.reloadData()
             case .failure(let error):
@@ -50,10 +51,12 @@ class ListMoviesViewController: UIViewController {
         }
     }
     
+    // MARK: - Register tableview Cell function
     private func registerCell() {
         MovieTableView.register(UINib(nibName: MovieCell.identifier, bundle: nil), forCellReuseIdentifier: MovieCell.identifier)
     }
     
+    // MARK: - NavigationBar SetUp function
     private func setupNavigationBar() {
         title = "Movie List"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -63,7 +66,7 @@ class ListMoviesViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.standardAppearance = appearance
     }
-    
+    // MARK: - Check Internet function
     private func showNoInternetView(){
         internetConnectivity = ConnectivityManager.connectivityInstance
         if internetConnectivity?.isConnectedToInternet() == true {
@@ -85,10 +88,10 @@ class ListMoviesViewController: UIViewController {
     
 }
 
-
+// MARK: - UITableViewDataSource
 extension ListMoviesViewController : UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - UITableViewDataSource
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
