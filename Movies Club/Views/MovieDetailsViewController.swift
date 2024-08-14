@@ -47,7 +47,7 @@ class MovieDetailsViewController: UIViewController {
     
     // MARK: - Private Methods
     private func fetchData(){
-        ProgressHUD.show()
+        //ProgressHUD.show()
         NetworkService.shared.fetchMovieDetails(id: movieID) { [weak self] (result) in
             switch result {
             case .success(let movies):
@@ -58,7 +58,8 @@ class MovieDetailsViewController: UIViewController {
                 self?.genresCollectionView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
-                ProgressHUD.showError(error.localizedDescription)
+                ProgressHUD.failed(error.localizedDescription)
+//                ProgressHUD.showError(error.localizedDescription)
             }
         }
     }
@@ -101,14 +102,16 @@ class MovieDetailsViewController: UIViewController {
         let localMovie = LocalMovie(id: movie.id ?? 0, title: movie.originalTitle ?? "", rating: movie.voteAverage ?? 0.0, releaseDate: movie.releaseDate ?? "", image: movie.posterPath ?? "")
         DatabaseManager.sharedMovieDB.insertMovie(movie: localMovie)
         self.favoriteBtnOutlet.image = UIImage(systemName: Constants.fillHeart)
-        ProgressHUD.showSuccess("Movie has been added to Favourite.")
+        ProgressHUD.succeed("Movie has been added to Favourite.", delay: 0.7)
+
         
     }
     
     private func deleteMovie(){
         DatabaseManager.sharedMovieDB.delete(id:  movie.id ?? 0)
         self.favoriteBtnOutlet.image = UIImage(systemName: Constants.heart)
-        ProgressHUD.showError("Movie has been deleted from Favourite.")
+        ProgressHUD.failed("Movie has been deleted from Favourite.")
+
         
     }
     

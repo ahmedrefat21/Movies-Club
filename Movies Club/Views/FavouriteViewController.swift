@@ -35,7 +35,7 @@ class FavouriteViewController: UIViewController {
     
     // MARK: - Private Methods
     private func fetchData(){
-        ProgressHUD.show()
+        //ProgressHUD.show()
         self.favouriteMovies = DatabaseManager.sharedMovieDB.fetchAllMovies() ?? []
         ProgressHUD.dismiss()
         self.FavouriteTableView.reloadData()
@@ -81,7 +81,7 @@ extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
             controller.movieID = favouriteMovies[indexPath.row].id
             navigationController?.pushViewController(controller, animated: true)
         }else {
-            ProgressHUD.showError("Try Connect to WiFi")
+            ProgressHUD.failed("Try Connect to WiFi")
         }
         
     }
@@ -117,7 +117,7 @@ extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
                 DatabaseManager.sharedMovieDB.delete(id:self.favouriteMovies[indexPath.row].id)
                 self.favouriteMovies.remove(at: indexPath.row)
                 self.FavouriteTableView.reloadData()
-                ProgressHUD.showError("Movie has been deleted from Favourite.")
+                ProgressHUD.failed("Movie has been deleted from Favourite.")
                 self.checkIfThereAreFavoriteProducts(allMoviesList: self.favouriteMovies)
 
                 

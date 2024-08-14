@@ -36,7 +36,7 @@ class ListMoviesViewController: UIViewController {
     
     // MARK: - Private Methods
     private func fetchData(){
-        ProgressHUD.show()
+        //ProgressHUD.show()
         NetworkService.shared.fetchAllMovies { [weak self] (result) in
             switch result {
             case .success(let movies):
@@ -45,7 +45,7 @@ class ListMoviesViewController: UIViewController {
                 self?.MovieTableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
-                ProgressHUD.showError(error.localizedDescription)
+                ProgressHUD.failed(error.localizedDescription)
             }
         }
     }
