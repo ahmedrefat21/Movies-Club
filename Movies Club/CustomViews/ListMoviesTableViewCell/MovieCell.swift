@@ -27,7 +27,7 @@ class MovieCell: UITableViewCell {
         movieTitle.text = movie.originalTitle
         movieTotalRating.text = String(format: "%.1f", movie.voteAverage ?? 0)
         movieImg.kf.setImage(with: URL(string: Route.imageBaseUrl + (movie.posterPath ?? "")))
-        movieReleaseDate.text = movie.releaseDate
+        movieReleaseDate.text = Utilities.formatDateString(movie.releaseDate ?? "")  
         movieRatinginStars.rating = Double((movie.voteAverage ?? 0) / 2)
     }
     
@@ -35,7 +35,7 @@ class MovieCell: UITableViewCell {
         movieTitle.text = movie.title
         movieTotalRating.text = String(format: "%.1f", movie.rating)
         movieImg.kf.setImage(with: URL(string: Route.imageBaseUrl + (movie.image)))
-        movieReleaseDate.text = movie.releaseDate
+        movieReleaseDate.text = Utilities.formatDateString(movie.releaseDate)
         movieRatinginStars.rating = Double((movie.rating) / 2)
     }
     

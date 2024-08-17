@@ -19,4 +19,17 @@ class Utilities {
         navController.modalTransitionStyle = .crossDissolve
         viewController.present(navController, animated: true)
     }
+    
+    
+    
+    static func formatDateString(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = dateFormatter.date(from: dateString) else {
+            return nil
+        }
+        dateFormatter.dateFormat = "d MMMM yyyy"
+        let formattedDateString = dateFormatter.string(from: date)
+        return formattedDateString
+    }
 }

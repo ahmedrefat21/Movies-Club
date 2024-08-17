@@ -82,7 +82,7 @@ class MovieDetailsViewController: UIViewController {
         movieImageView.kf.setImage(with: URL(string: Route.imageBaseUrl + (movie.backdropPath ?? "")))
         movieTitleLabel.text = movie.title
         movieDescriptionLabel.text = movie.overview
-        movieReleaseDateLabel.text = movie.releaseDate
+        movieReleaseDateLabel.text = Utilities.formatDateString(movie.releaseDate ?? "")
         movieTotalRating.text = String(format: "%.1f", movie.voteAverage ?? 0)
         movieRatinginStars.rating = Double((movie.voteAverage ?? 0) / 2)
         genres = movie.genres ?? []
