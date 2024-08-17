@@ -24,6 +24,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="hpI-Iq-oEz" id="KmK-t7-4iQ"/>
                                     <outlet property="delegate" destination="hpI-Iq-oEz" id="3uj-XS-X9P"/>
+                                    <outlet property="prefetchDataSource" destination="hpI-Iq-oEz" id="qrG-4G-vMp"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyb-G0-vG7">

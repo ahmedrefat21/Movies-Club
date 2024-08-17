@@ -14,6 +14,8 @@ class ListMoviesViewController: UIViewController {
     private let appearance = UINavigationBarAppearance()
     var internetConnectivity: ConnectivityManager?
     var movies : [Movie] = []
+    private var currentPage = 1
+    private var isFetchingMovies = false
 
     
     // MARK: - Outlets
@@ -38,12 +40,15 @@ class ListMoviesViewController: UIViewController {
     // MARK: - Data fetching function
     private func fetchData(){
         spinner.startAnimating()
-        NetworkService.shared.fetchAllMovies { [weak self] (result) in
+        isFetchingMovies = true
+        NetworkService.shared.fetchAllMovies(page: currentPage) { [weak self] (result) in
             switch result {
             case .success(let movies):
                 self?.spinner.stopAnimating()
-                self?.movies = movies.results
+                self?.movies.append(contentsOf: movies.results)
                 self?.MovieTableView.reloadData()
+                self?.currentPage += 1
+                self?.isFetchingMovies = false
             case .failure(let error):
                 print(error.localizedDescription)
                 ProgressHUD.failed(error.localizedDescription)
@@ -109,7 +114,6 @@ extension ListMoviesViewController : UITableViewDelegate, UITableViewDataSource 
     
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         //set the initial state of the cell
         cell.alpha = 0
         let transform = CATransform3DTranslate(CATransform3DIdentity, -250, 20, 0)
@@ -119,11 +123,25 @@ extension ListMoviesViewController : UITableViewDelegate, UITableViewDataSource 
             cell.alpha = 1.0
             cell.layer.transform = CATransform3DIdentity
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 200
    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+extension ListMoviesViewController : UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        for index in indexPaths {
+            if index.row >= movies.count - 3  && !isFetchingMovies{
+                fetchData()
+                break
+            }
+        }
+    }
+    
+    
 }
 

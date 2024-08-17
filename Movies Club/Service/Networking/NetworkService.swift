@@ -13,12 +13,12 @@ struct NetworkService {
     private init() {}
     
     
-    func fetchAllMovies(completion: @escaping(Result<AllMovies, Error>) -> Void) {
-        request(route: .fetchAllCategories, completion: completion)
+    func fetchAllMovies(page :Int,completion: @escaping(Result<AllMovies, Error>) -> Void) {
+        request(route: .fetchAllMovies(page), completion: completion)
     }
     
     func fetchMovieDetails(id : Int,completion: @escaping(Result<MovieDetail, Error>) -> Void) {
-        request(route: .placeOrder(id), completion: completion)
+        request(route: .fetchMovieDetails(id), completion: completion)
     }
     
     
