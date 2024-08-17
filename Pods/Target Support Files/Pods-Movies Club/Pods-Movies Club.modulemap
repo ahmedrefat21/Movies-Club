@@ -1,6 +1,0 @@
-framework module Pods_Movies_Club {
-  umbrella header "Pods-Movies Club-umbrella.h"
-
-  export *
-  module * { export * }
-}

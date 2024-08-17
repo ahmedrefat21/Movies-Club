@@ -9,11 +9,11 @@ import UIKit
 
 class GenreCollectionViewCell: UICollectionViewCell {
 
+    // MARK: Identifier
     static let identifier = String(describing: GenreCollectionViewCell.self)
+    
+    // MARK: - Outlets
     @IBOutlet weak var gernes: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+   
 
 }

@@ -36,3 +36,11 @@ struct Movie: Decodable {
     }
 }
 
+
+struct LocalMovie {
+    var id: Int
+    var title: String
+    var rating: Double
+    var releaseDate : String
+    var image: String
+}
