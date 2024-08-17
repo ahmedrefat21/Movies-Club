@@ -92,7 +92,6 @@ class MovieDetailsViewController: UIViewController {
     // MARK: - Check Favourie Item functions
     private func checkFavorite() {
         let isFav = DatabaseManager.sharedMovieDB.isFavorite(movieId: movieID)
-        
         if isFav {
             self.favoriteBtnOutlet.image = UIImage(systemName: Constants.fillHeart)
         } else {
@@ -120,7 +119,7 @@ class MovieDetailsViewController: UIViewController {
     
     // MARK: - Buttons Action
     @IBAction func backBtn(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true)
         
     }
     

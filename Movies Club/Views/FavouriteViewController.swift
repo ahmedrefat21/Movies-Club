@@ -81,9 +81,7 @@ extension FavouriteViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         internetConnectivity = ConnectivityManager.connectivityInstance
         if internetConnectivity?.isConnectedToInternet() == true {
-            let controller = MovieDetailsViewController.instantiate()
-            controller.movieID = favouriteMovies[indexPath.row].id
-            navigationController?.pushViewController(controller, animated: true)
+            Utilities.navigateToDetailsScreen(viewController: self, movieID: favouriteMovies[indexPath.row].id)
         }else {
             ProgressHUD.failed("Try Connect to WiFi")
         }

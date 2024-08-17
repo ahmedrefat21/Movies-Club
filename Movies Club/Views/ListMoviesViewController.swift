@@ -107,9 +107,8 @@ extension ListMoviesViewController : UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = MovieDetailsViewController.instantiate()
-        controller.movieID = movies[indexPath.row].id ?? 0
-        navigationController?.pushViewController(controller, animated: true)
+        
+        Utilities.navigateToDetailsScreen(viewController: self, movieID: movies[indexPath.row].id ?? 0)
     }
     
     
